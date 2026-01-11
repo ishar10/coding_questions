@@ -24,18 +24,23 @@ Constraints:
 
 class Solution:
     def subarraySum(self, nums: List[int], k: int) -> int:
-        nums1 = [nums[0]]
-        for i in range(1,len(nums)):
-            nums1.append(nums1[i-1] +nums[i])
         hashmap = {0:1}
         count = 0
-        for i in range(len(nums1)):
-            if nums1[i]-k in hashmap:
-                count += hashmap[nums1[i]-k]
-            if nums1[i] in hashmap:
-                hashmap[nums1[i]] +=1
+        summ =0
+        for i in range(len(nums)):
+            summ = summ+ nums[i]
+            if (summ - k) in hashmap:
+                count+=hashmap[summ-k]
+                if summ in hashmap:
+                    hashmap[summ] +=1
+                else:
+                    hashmap[summ] =1
+
             else:
-                hashmap[nums1[i]] = 1
+                if summ in hashmap:
+                    hashmap[summ] += 1
+                else:
+                    hashmap[summ] =1
         return count
 
 
